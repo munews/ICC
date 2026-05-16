@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICC Study Site</title>
+<style>
+  :root {
+    --sand: #c8a96e;
+    --deep: #1a1208;
+    --dark: #231a0a;
+    --mid: #3d2c10;
+    --accent: #e8622a;
+    --gold: #d4a843;
+    --text: #f0e8d8;
+    --muted: #9c8a6e;
+    --card: #2d2010;
+    --border: #4a3520;
+    --green: #5a8a4a;
+    --red: #c04040;
+    --cyan: #3a8a9a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Georgia', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #2a1a05 0%, #1a0e03 50%, #2a1500 100%);
+    border-bottom: 2px solid var(--sand);
+    padding: 20px 16px 16px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h1 {
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    color: var(--sand);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: normal;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* NAV TABS */
+  nav {
+    display: flex;
+    overflow-x: auto;
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  nav button {
+    flex: 0 0 auto;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  nav button:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  nav button.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(212,168,67,0.06);
+  }
+
+  /* SECTIONS */
+  .section { display: none; padding: 16px; max-width: 900px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* INTRO NOTICE */
+  .notice {
+    background: linear-gradient(135deg, rgba(40,30,10,0.9), rgba(50,35,10,0.9));
+    border: 1px solid var(--sand);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: var(--mid);
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-body { padding: 14px; }
+
+  /* GLOBAL CLEAR TABLE STYLES */
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  table {
+    width: 100%;
+    min-width: 340px;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    border: 1px solid var(--border);
+  }
+
+  th {
+    background: var(--mid);
+    color: var(--gold);
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+    border-bottom: 2px solid var(--sand);
+    border-right: 1px solid var(--border);
+  }
+
+  th:last-child {
+    border-right: none;
+  }
+
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid rgba(200, 169, 110, 0.15);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  td:last-child {
+    border-right: none;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:last-child td[rowspan] {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* BADGES & TAGS */
+  .tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+ .tag-jihadist { background: rgba(192,64,64,0.25); color: #e08080; border: 1px solid rgba(192,64,64,0.4); }
+  .tag-secular   { background: rgba(90,138,74,0.25); color: #90c080; border: 1px solid rgba(90,138,74,0.4); }
+  .tag-salafi    { background: rgba(192,64,64,0.18); color: #d07070; border: 1px solid rgba(192,64,64,0.3); }
+  .tag-nationalist { background: rgba(58,138,154,0.25); color: #80c8d8; border: 1px solid rgba(58,138,154,0.4); }
+  .tag-alliance   { background: rgba(90,138,74,0.2); color: #80b870; border: 1px solid rgba(90,138,74,0.35); }
+  .tag-conflict   { background: rgba(192,64,64,0.2); color: #e08080; border: 1px solid rgba(192,64,64,0.35); }
+  .tag-critical   { background: rgba(232,98,42,0.2); color: #f09070; border: 1px solid rgba(232,98,42,0.4); }
+  .tag-intl       { background: rgba(130,90,180,0.2); color: #c0a0e8; border: 1px solid rgba(130,90,180,0.4); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 26px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--sand), var(--accent), var(--mid));
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--sand);
+    border: 2px solid var(--deep);
+  }
+
+  .tl-item.critical::before { background: var(--accent); }
+  .tl-item.international::before { background: #a080e0; }
+
+  .tl-date {
+    background: var(--mid);
+    padding: 5px 12px;
+    font-size: 0.72rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tl-body { padding: 10px 12px; font-size: 0.84rem; }
+  .tl-loc { color: var(--muted); font-size: 0.72rem; margin-top: 3px; }
+
+  /* RELATIONS */
+  .rel-card {
+    background: var(--card);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .rel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--mid);
+  }
+
+  .rel-groups { font-size: 0.85rem; color: var(--text); }
+  .rel-period { font-size: 0.72rem; color: var(--muted); }
+  .rel-body { padding: 10px 14px; font-size: 0.82rem; line-height: 1.7; color: #c8b89a; }
+
+  /* RELIGION TREE */
+  .tree-root {
+    background: linear-gradient(135deg, #4b0082, #2d0050);
+    border: 1px solid #8040c0;
+    border-radius: 8px;
+    text-align: center;
+    padding: 12px;
+    font-size: 1rem;
+    color: #d0a0f0;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .tree-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tree-node {
+    flex: 1 1 140px;
+    border-radius: 6px;
+    overflow: hidden;
+    min-width: 120px;
+  }
+
+  .tree-node-header {
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .tree-node-body { padding: 8px 12px; font-size: 0.8rem; line-height: 1.5; }
+
+  .node-sunni .tree-node-header { background: #1e4a7a; color: #80c0f8; }
+  .node-sunni .tree-node-body   { background: #0e2840; color: #a0c8e8; }
+
+  .node-shia .tree-node-header  { background: #1a5a3a; color: #80d8a8; }
+  .node-shia .tree-node-body    { background: #0a2a1a; color: #90c8a0; }
+
+  .node-sub {
+    flex: 1 1 100px;
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: 90px;
+  }
+
+  .node-salafi .tree-node-header { background: #6a2020; color: #f09090; }
+  .node-salafi .tree-node-body   { background: #3a1010; color: #d08080; }
+
+  .node-wahh .tree-node-header   { background: #6a3a10; color: #f0b060; }
+  .node-wahh .tree-node-body     { background: #3a1e06; color: #d09060; }
+
+  .node-sufi .tree-node-header   { background: #6a20aa; color: #e090f0; }
+  .node-sufi .tree-node-body     { background: #3a1060; color: #c080e0; }
+
+  .node-shia-sub .tree-node-header { background: #1a5a20; color: #80e080; }
+  .node-shia-sub .tree-node-body   { background: #0a2e10; color: #80c880; }
+
+  .connector { text-align: center; color: var(--border); font-size: 1.2rem; margin: -4px 0; }
+
+  /* SHARIA BOX */
+  .sharia-box {
+    background: linear-gradient(135deg, #1a2840, #0e1820);
+    border: 1px solid #2a4a70;
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 14px;
+  }
+
+  .sharia-box h3 { color: #6aa8f0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .sharia-box p  { font-size: 0.84rem; color: #90b8d8; line-height: 1.7; }
+  .sharia-sources { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .sharia-source {
+    background: rgba(42,74,112,0.4);
+    border: 1px solid #2a4a70;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    color: #80aad8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* RESUME SECTION */
+  .resume-intro {
+    background: linear-gradient(135deg, rgba(90,60,10,0.4), rgba(60,40,5,0.4));
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 18px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .group-resume {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+
+  .group-resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+  }
+
+  .group-name { font-size: 1rem; font-weight: bold; letter-spacing: 0.05em; }
+  .group-full { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+  .group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .group-cell {
+    background: var(--card);
+    padding: 10px 12px;
+  }
+
+  .group-cell-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .group-cell-value { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+  .group-goal { padding: 10px 14px; font-size: 0.84rem; color: #c8b89a; border-top: 1px solid var(--border); }
+
+  /* COLORS FOR GROUP HEADERS */
+  .hdr-aqim  { background: linear-gradient(135deg, #4a1a1a, #2a0a0a); border-top: 3px solid #c04040; }
+  .hdr-ad    { background: linear-gradient(135deg, #3a1a4a, #1a0a2a); border-top: 3px solid #8040c0; }
+  .hdr-mujao { background: linear-gradient(135deg, #4a2a0a, #2a1400); border-top: 3px solid #e07020;  }
+  .hdr-mnla  { background: linear-gradient(135deg, #0a2a4a, #041220); border-top: 3px solid #4090c0; }
+  .hdr-mna   { background: linear-gradient(135deg, #0a4a0a, #021202); border-top: 3px solid #40c040; }
+
+  /* RESPONSIVE */
+  @media (max-width: 500px) {
+    .tree-row { flex-direction: column; }
+    .tree-node { flex: 1 1 auto; }
+  }
+
+  /* SCROLL TO TOP */
+  .scroll-hint {
+    text-align: center;
+    color: var(--border);
+    font-size: 0.7rem;
+    padding: 6px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    background: rgba(232,98,42,0.15);
+    border: 1px solid rgba(232,98,42,0.4);
+    color: var(--accent);
+    font-size: 0.68rem;
+    padding: 1px 6px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-left: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ICC Study site.</h1>
+  <p>Northern Mali Insurgency · 2012–2013 · Al Hassan Case Context</p>
+</header>
+
+<nav id="nav">
+  <button class="active" onclick="show('intro',this)">📋 Start Here</button>
+  <button onclick="show('geo',this)">🗺 Geography</button>
+  <button onclick="show('religion',this)">☪ Religion & Law</button>
+  <button onclick="show('groups',this)">⚔ Armed Groups</button>
+  <button onclick="show('relations',this)">🔗 Relations</button>
+  <button onclick="show('timeline',this)">📅 Timeline</button>
+  <button onclick="show('resume',this)">📊 Summary</button>
+</nav>
+
+<!-- INTRO -->
+<div id="intro" class="section active">
+  <div class="notice">
+    📖 <strong>How to use this guide:</strong> While reading your main study material, keep this open in a separate tab to look up terms, groups, and events. After reading everything once, return here to review the Summary tab which contextualises religion and armed groups together.
+  </div>
+
+  <div class="card">
+    <div class="card-header">Quick Reference — Key Acronyms</div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Acronym</th><th>Full Name</th><th>Type</th></tr>
+          <tr><td><strong>AQIM</strong></td><td>Al-Qa'ida in the Islamic Maghreb</td><td><span class="tag tag-jihadist">Jihadist</span></td></tr>
+          <tr><td><strong>AD</strong></td><td>Ansar Dine (Supporters of the Faith)</td><td><span class="tag tag-jihadist">Islamist</span></td></tr>
+          <tr><td><strong>MUJAO</strong></td><td>Movement for Oneness and Jihad in West Africa</td><td><span class="tag tag-jihadist">Jihadist</span></td></tr>
+          <tr><td><strong>MNLA</strong></td><td>National Movement for the Liberation of Azawad</td><td><span class="tag tag-secular">Secular</span></td></tr>
+          <tr><td><strong>MNA</strong></td><td>Malian National Army (government forces)</td><td><span class="tag tag-secular">State</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Key Dates at a Glance</div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Date</th><th>Event</th></tr>
+          <tr><td>17 Jan 2012</td><td>Tuareg rebellion begins (Menaka)</td></tr>
+          <tr><td>22 Mar 2012</td><td>Military coup in Bamako destabilizes government</td></tr>
+          <tr><td>1–2 Apr 2012</td><td>Timbuktu falls; alliance immediately breaks down</td></tr>
+          <tr><td>Apr–Jan 2013</td><td><span class="badge">Al Hassan Period</span> Sharia enforced in Timbuktu</td></tr>
+          <tr><td>11 Jan 2013</td><td>French military intervention begins</td></tr>
+          <tr><td>28–29 Jan 2013</td><td>Timbuktu liberated; Al Hassan period ends</td></tr>
+          <tr><td>31 Mar 2018</td><td>Al Hassan arrested, and sent to Netherlands</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">▼ Navigate using the tabs above</div>
+</div>
+
+<!-- GEOGRAPHY -->
+<div id="geo" class="section">
+  <div class="card">
+    <div class="card-header">Territorial Control — Cities & Zones</div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Zone/Region</th><th>City</th><th>Captured By</th><th>Period</th></tr>
+          <tr><td>Azawad</td><td>Menaka</td><td>MNLA vs MNA</td><td>17 Jan 2012</td></tr>
+          <tr><td>Central Mali</td><td>Goumakoura</td><td rowspan="7">MNLA, AQIM, AD</td><td rowspan="8">Jan–Mar 2012</td></tr>
+          <tr><td rowspan="9">Azawad</td><td>Léré</td></tr>
+          <tr><td>Andéramboukane</td></tr>
+          <tr><td>Niafunké</td></tr>
+          <tr><td>Tinzawatene</td></tr>
+          <tr><td>Aguelhok</td></tr>
+          <tr><td>Kidal</td></tr>
+          <tr><td>Gao</td><td>MNLA, AQIM, MUJAO</td></tr>
+          <tr><td>Timbuktu</td><td>MNLA</td><td>1 Apr 2012</td></tr>
+          <tr><td>Timbuktu</td><td>AD + AQIM</td><td>2 Apr 2012</td></tr>
+          <tr><td rowspan="2">Central Mali</td><td>Konna</td><td rowspan="2">AQIM, AD, MUJAO</td><td rowspan="2">Jan 2013</td></tr>
+          <tr><td>Diabaly</td></tr>
+          <tr><td rowspan="3">MALI (south)</td><td>Bamako</td><td>Military Junta vs MNA</td><td>22 Mar 2012 (Coup)</td></tr>
+          <tr><td>Northern Mali</td><td>Contested</td><td rowspan="2">Throughout 2012–2013</td></tr>
+          <tr><td>Northern/Central Mali</td><td>Multiple groups</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Fragmented Control — Late 2012</div>
+    <div class="card-body" style="font-size:0.84rem; line-height:1.8; color:#c8b89a;">
+      <p><strong style="color:var(--gold)">Timbuktu</strong> — Controlled by AD + AQIM. Al Hassan served as military commander here (Apr 2012–Jan 2013). Sharia law enforced.</p>
+      <br>
+      <p><strong style="color:var(--gold)">Gao</strong> — Controlled by MUJAO. Competition with other jihadist groups.</p>
+      <br>
+      <p><strong style="color:var(--gold)">Kidal</strong> — Controlled by MNLA (secular Tuareg nationalists). Marginalized after April 2012.</p>
+      <br>
+      <p><strong style="color:var(--gold)">Bamako (south)</strong> — Government disrupted by military coup. Military command chain weakened.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RELIGION -->
+<div id="religion" class="section">
+
+  <div class="tree-root">☪ ROOT: ISLAM</div>
+
+  <div class="tree-row">
+    <div class="tree-node node-sunni">
+      <div class="tree-node-header">Branch 1: Sunni Islam</div>
+      <div class="tree-node-body">Largest branch (~85% of Muslims). Community elects leaders. Four major jurisprudential schools: Hanafi, Hanbali, Maliki, Shafi'i.</div>
+    </div>
+  </div>
+
+  <div class="connector">↓ subdivisions ↓</div>
+
+  <div class="tree-row" style="margin-top:8px;">
+    <div class="tree-node node-sub node-salafi">
+      <div class="tree-node-header">Salafism</div>
+      <div class="tree-node-body">Ultra-conservative fundamentalism. Literalist interpretation of Qur'an & Sunnah. Claims "pure" original Islam. <strong>Used by: AQIM, AD</strong></div>
+    </div>
+    <div class="tree-node node-sub node-wahh">
+      <div class="tree-node-header">Wahhabism</div>
+      <div class="tree-node-body">Literal Qur'an interpretation. Rejects "innovations" and polytheism. Absolute monotheism emphasis.</div>
+    </div>
+    <div class="tree-node node-sub node-sufi">
+      <div class="tree-node-header">Sufism</div>
+      <div class="tree-node-body">Mystical inner dimension of Islam. Spiritual experience focus. Exists in both Sunni & Shia traditions. Targeted by jihadists.</div>
+    </div>
+  </div>
+      <div class="connector"> <br> </div>
+  <div class="tree-row">
+    <div class="tree-node node-shia">
+      <div class="tree-node-header">Branch 2: Shia Islam</div>
+      <div class="tree-node-body">~15% of Muslims. Leadership remains within the Prophet's family. Different legal schools and theology.</div>
+    </div>
+    </div>
+      <div class="connector">↓ </div>
+    <div class="tree-row" style="margin-top:8px;">
+    <div class="tree-node node-sub node-shia-sub">
+      <div class="tree-node-header">Shia Schools</div>
+      <div class="tree-node-body">Twelver, Ismaili, Zaidi — each with distinct legal & theological traditions.</div>
+    </div>
+  </div>
+
+  <div class="sharia-box">
+    <h3>⚖ Law: Sharia</h3>
+    <p>Islamic moral code and legal framework governing daily rituals, personal ethics, family law, finance, and criminal justice. Imposed by AD and AQIM in Timbuktu during the Al Hassan period.</p>
+    <div class="sharia-sources">
+      <span class="sharia-source">The Quran</span>
+      <span class="sharia-source">The Sunnah</span>
+      <span class="sharia-source">Ijma (consensus)</span>
+      <span class="sharia-source">Analogical reasoning</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-header">Religion → Group Connection</div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Group</th><th>Orientation</th><th>Root Ideology</th></tr>
+          <tr><td><strong>AQIM</strong></td><td>Sunni Jihadist</td><td><span class="tag tag-salafi">Salafi-Jihadist</span></td></tr>
+          <tr><td><strong>AD</strong></td><td>Sunni Islamist</td><td><span class="tag tag-salafi">Salafist</span></td></tr>
+          <tr><td><strong>MUJAO</strong></td><td>Militant Islamist</td><td><span class="tag tag-jihadist">Jihadist</span></td></tr>
+          <tr><td><strong>MNLA</strong></td><td><strong>SECULAR</strong></td><td><span class="tag tag-nationalist">Nationalist</span></td></tr>
+          <tr><td><strong>MNA</strong></td><td><strong>SECULAR</strong></td><td><span class="tag tag-nationalist">Nationalist</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARMED GROUPS -->
+<div id="groups" class="section">
+
+  <!-- AQIM -->
+  <div class="group-resume">
+    <div class="group-resume-header hdr-aqim">
+      <div>
+        <div class="group-name" style="color:#e08080;">AQIM</div>
+        <div class="group-full">Al-Qa'ida in the Islamic Maghreb</div>
+      </div>
+      <span class="tag tag-jihadist">Jihadist</span>
+    </div>
+    <div class="group-grid">
+      <div class="group-cell"><div class="group-cell-label">Ideology</div><div class="group-cell-value">Sunni Jihadist Terrorist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Religion</div><div class="group-cell-value">Salafi-Jihadist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Leaders</div><div class="group-cell-value">Abdelmalek Droukdel (regional)<br>Nabil Makhlouf (Mali ops)<br>Multiple katibat commanders</div></div>
+    </div>
+    <div class="group-goal">🎯 <strong>Goal:</strong> Eliminate governments and Western influence; establish Sharia throughout the Maghreb region using violent jihad.</div>
+  </div>
+
+  <!-- AD -->
+  <div class="group-resume">
+    <div class="group-resume-header hdr-ad">
+      <div>
+        <div class="group-name" style="color:#c090f0;">AD</div>
+        <div class="group-full">Ansar Dine — Supporters of the Faith</div>
+      </div>
+      <span class="tag tag-jihadist">Islamist</span>
+    </div>
+    <div class="group-grid">
+      <div class="group-cell"><div class="group-cell-label">Ideology</div><div class="group-cell-value">Sunni Islamist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Religion</div><div class="group-cell-value">Salafist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Leaders</div><div class="group-cell-value">Iyad Ag Ghaly (founder)<br><em>Al Hassan</em> (military cmdr, Timbuktu)<br>Sanda Ould Boumama</div></div>
+    </div>
+    <div class="group-goal">🎯 <strong>Goal:</strong> Establish Islamic state across Mali; replace Constitution with Sharia. <em>Note: Al Hassan prosecuted as military commander in Timbuktu Apr 2012 – Jan 2013 under Iyad Ag Ghaly's leadership.</em></div>
+  </div>
+
+  <!-- MUJAO -->
+  <div class="group-resume">
+    <div class="group-resume-header hdr-mujao">
+      <div>
+        <div class="group-name" style="color:#f0a060;">MUJAO</div>
+        <div class="group-full">Movement for Oneness and Jihad in West Africa</div>
+      </div>
+      <span class="tag tag-jihadist">Jihadist</span>
+    </div>
+    <div class="group-grid">
+      <div class="group-cell"><div class="group-cell-label">Ideology</div><div class="group-cell-value">Militant Islamist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Religion</div><div class="group-cell-value">Jihadist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Leaders</div><div class="group-cell-value">Mahdi al-Harati<br>Belmokhtar (co-leader; split from AQIM 2011)</div></div>
+    </div>
+    <div class="group-goal">🎯 <strong>Goal:</strong> Establish Islamic state; regional jihadist operations in West Africa; compete with AQIM for territory and Islamic legitimacy.</div>
+  </div>
+
+  <!-- MNLA -->
+  <div class="group-resume">
+    <div class="group-resume-header hdr-mnla">
+      <div>
+        <div class="group-name" style="color:#80c0f8;">MNLA</div>
+        <div class="group-full">National Movement for the Liberation of Azawad</div>
+      </div>
+      <span class="tag tag-secular">Secular</span>
+    </div>
+    <div class="group-grid">
+      <div class="group-cell"><div class="group-cell-label">Ideology</div><div class="group-cell-value">Secular</div></div>
+      <div class="group-cell"><div class="group-cell-label">Religion</div><div class="group-cell-value">Nationalist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Leaders</div><div class="group-cell-value">Iyad Ag Ghaly (initially)<br>Multiple clan leaders<br>Decentralized structure</div></div>
+    </div>
+    <div class="group-goal">🎯 <strong>Goal:</strong> Tuareg independence; establish a self-governed, <strong>secular</strong> Azawad state. NOT Islamic governance — this is the core ideological conflict with jihadist allies.</div>
+  </div>
+
+  <!-- MNA -->
+  <div class="group-resume">
+    <div class="group-resume-header hdr-mna" style="background: linear-gradient(135deg, #0a3a0a, #021002); border-top: 3px solid #40c040;">
+      <div>
+        <div class="group-name" style="color:#80e080;">MNA</div>
+        <div class="group-full">Malian National Army (Government Forces)</div>
+      </div>
+      <span class="tag tag-secular">State</span>
+    </div>
+    <div class="group-grid">
+      <div class="group-cell"><div class="group-cell-label">Ideology</div><div class="group-cell-value">Secular</div></div>
+      <div class="group-cell"><div class="group-cell-label">Religion</div><div class="group-cell-value">Nationalist</div></div>
+      <div class="group-cell"><div class="group-cell-label">Leaders</div><div class="group-cell-value">Government-appointed commanders<br>Chain from Bamako<br>Various generals/colonels</div></div>
+    </div>
+    <div class="group-goal">🎯 <strong>Goal:</strong> Defend Mali; oppose all insurgent groups; maintain government control. <em>Severely weakened by the March 2012 coup.</em></div>
+  </div>
+</div>
+
+<!-- RELATIONS -->
+<div id="relations" class="section">
+
+  <div class="rel-card">
+    <div class="rel-header">
+      <div>
+        <div class="rel-groups"><span class="tag tag-alliance">Alliance</span> MNLA + AD + AQIM</div>
+      </div>
+      <div class="rel-period">Jan – Mar 2012</div>
+    </div>
+    <div class="rel-body">
+      Common enemy: the Malian government. MNLA seeks Tuareg independence; jihadists seek a religious state. Despite opposite ideologies, they coordinate the northern takeover. A marriage of convenience.
+    </div>
+  </div>
+
+  <div class="rel-card">
+    <div class="rel-header">
+      <div><div class="rel-groups"><span class="tag tag-conflict">Breakdown</span> MNLA vs AD + AQIM</div></div>
+      <div class="rel-period">April 2012</div>
+    </div>
+    <div class="rel-body">
+      MNLA is secular nationalist; jihadists want Islamic governance. AD and AQIM expel MNLA from Timbuktu on 2 April — one day after MNLA captured it. <strong style="color:var(--accent)">This is the critical turning point.</strong>
+    </div>
+  </div>
+
+  <div class="rel-card">
+    <div class="rel-header">
+      <div><div class="rel-groups"><span class="tag tag-alliance">Tense Coexistence</span> MNLA + AQIM + AD</div></div>
+      <div class="rel-period">Apr – Jun 2012</div>
+    </div>
+    <div class="rel-body">
+      Groups operate in the same regions independently. MNLA weakened and increasingly marginalized by jihadists. No unified command, ongoing friction.
+    </div>
+  </div>
+
+  <div class="rel-card">
+    <div class="rel-header">
+      <div><div class="rel-groups"><span class="tag tag-conflict">Competition</span> AQIM vs MUJAO vs AD</div></div>
+      <div class="rel-period">Jun 2012 – Jan 2013</div>
+    </div>
+    <div class="rel-body">
+      MUJAO split from AQIM late 2011 over tactics and authority. Groups compete for territorial control and Islamic legitimacy. Periodic cooperation and conflict. Northern Mali splits into three jihadist zones.
+    </div>
+  </div>
+
+  <div class="rel-card">
+    <div class="rel-header">
+      <div><div class="rel-groups"><span class="tag tag-conflict">Fragmented Control</span> AQIM · AD · MUJAO · MNLA</div></div>
+      <div class="rel-period">Mid 2012 – Jan 2013</div>
+    </div>
+    <div class="rel-body">
+      <strong style="color:var(--gold)">Timbuktu:</strong> AD + AQIM &nbsp;|&nbsp; <strong style="color:var(--gold)">Gao:</strong> MUJAO &nbsp;|&nbsp; <strong style="color:var(--gold)">Kidal:</strong> MNLA
+      <br><br>Constant negotiation over territory. No unified jihadist command. MNLA effectively sidelined.
+    </div>
+  </div>
+
+  <div class="rel-card">
+    <div class="rel-header">
+      <div><div class="rel-groups"><span class="tag tag-intl">International</span> All insurgents vs French/Malian Forces</div></div>
+      <div class="rel-period">Jan 2013 onward</div>
+    </div>
+    <div class="rel-body">
+      French intervention (Operation Serval) creates a common external enemy. Jihadist groups loosely unite in opposition, but lack of unified command weakens their military response. Timbuktu liberated 28–29 January 2013.
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div id="timeline" class="section">
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-date">Pre-2012 <span style="color:var(--muted)">Background</span></div>
+      <div class="tl-body">Pre-insurgency period; jihadist presence growing across northern Mali. Groups building networks.</div>
+      <div class="tl-loc">📍 Timbuktu and northern regions</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">17 January 2012 <span class="tag tag-conflict">Battle</span></div>
+      <div class="tl-body"><strong>First major battle.</strong> MNLA vs. MNA in Menaka — Tuareg rebellion officially launches.</div>
+      <div class="tl-loc">📍 Menaka</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Jan – Mar 2012 <span class="tag tag-alliance">Alliance</span></div>
+      <div class="tl-body">MNLA–jihadist alliance captures multiple northern cities: Aguelhok, Léré, Andéramboukane, Niafunké, Tinzawatene, Goumakoura, Kidal, Gao.</div>
+      <div class="tl-loc">📍 Multiple northern cities</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">22 March 2012 <span class="tag tag-critical">Coup</span></div>
+      <div class="tl-body"><strong>Coup d'état in Bamako.</strong> Military junta ousts government. Malian national forces severely destabilized — opening for insurgent advance.</div>
+      <div class="tl-loc">📍 Bamako (capital)</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">30 March 2012</div>
+      <div class="tl-body">Jihadists consolidate control with MNLA in Kidal. Alliance still nominally intact.</div>
+      <div class="tl-loc">📍 Kidal</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">31 March 2012</div>
+      <div class="tl-body">All major groups active in Gao; competition between factions begins to emerge.</div>
+      <div class="tl-loc">📍 Gao</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">1 April 2012</div>
+      <div class="tl-body">MNLA captures Timbuktu from government forces.</div>
+      <div class="tl-loc">📍 Timbuktu</div>
+    </div>
+
+    <div class="tl-item critical">
+      <div class="tl-date">2 April 2012 <span class="tag tag-critical">CRITICAL</span></div>
+      <div class="tl-body"><strong>Alliance breaks down.</strong> AD and AQIM begin expelling MNLA from Timbuktu — just one day after MNLA captured it. Secular vs. Islamist conflict becomes open.</div>
+      <div class="tl-loc">📍 Timbuktu</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">6 April 2012</div>
+      <div class="tl-body">Conflict intensifies between MNLA and AD as ideological clash (secular vs. Islamist) becomes irreconcilable.</div>
+      <div class="tl-loc">📍 Northern Mali</div>
+    </div>
+
+    <div class="tl-item critical">
+      <div class="tl-date">Apr – May 2012 <span class="badge">Al Hassan Period Begins</span></div>
+      <div class="tl-body"><strong>Sharia law enforcement begins in Timbuktu.</strong> AD and AQIM establish control. Al Hassan serves as AD's military commander in the city under Iyad Ag Ghaly's overall leadership.</div>
+      <div class="tl-loc">📍 Timbuktu</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Jun 2012 – Jan 2013</div>
+      <div class="tl-body">Fragmented multi-group control across north. MNLA marginalized. Jihadists compete for dominance. Gao under MUJAO; Timbuktu under AD+AQIM; Kidal under MNLA.</div>
+      <div class="tl-loc">📍 Gao, Northern Mali</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">September 2012</div>
+      <div class="tl-body">Continued Islamic law implementation in Timbuktu. Religious courts established.</div>
+      <div class="tl-loc">📍 Timbuktu</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Late 2012 – Early 2013</div>
+      <div class="tl-body">Jihadist consolidation; Sharia enforcement intensifies across northern and central Mali.</div>
+      <div class="tl-loc">📍 Northern/Central Mali</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">January 2013</div>
+      <div class="tl-body">Jihadist advance toward central Mali. Konna and Diabaly fall to AQIM, AD, MUJAO.</div>
+      <div class="tl-loc">📍 Konna, Diabaly</div>
+    </div>
+
+    <div class="tl-item international">
+      <div class="tl-date">11 January 2013 <span class="tag tag-intl">Intervention</span></div>
+      <div class="tl-body"><strong>INTERNATIONAL INTERVENTION BEGINS.</strong> France launches Operation Serval. French forces, Malian army, and Chadian forces engage AQIM, AD, MUJAO.</div>
+      <div class="tl-loc">📍 Central/Northern Mali</div>
+    </div>
+
+    <div class="tl-item international critical">
+      <div class="tl-date">28–29 January 2013 <span class="badge">Al Hassan Period Ends</span></div>
+      <div class="tl-body"><strong>LIBERATION OF TIMBUKTU.</strong> French and Malian forces retake the city. International control established. Al Hassan's command period ends.</div>
+      <div class="tl-loc">📍 Timbuktu</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">15 May 2015</div>
+      <div class="tl-body">Peace negotiations and power-sharing talks between Malian government and northern armed factions.</div>
+      <div class="tl-loc">📍 Bamako</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Apr 2017 – Mar 2018</div>
+      <div class="tl-body">Ongoing French and Malian operations against remaining jihadist groups.</div>
+      <div class="tl-loc">📍 Northern Mali</div>
+    </div>
+
+    <div class="tl-item critical">
+      <div class="tl-date">31 March 2018 <span class="tag tag-critical">Arrest</span></div>
+      <div class="tl-body"><strong>Al Hassan arrested and sent to Netherlands.</strong> Prosecution at the International Criminal Court for crimes against humanity and war crimes committed in Timbuktu.</div>
+      <div class="tl-loc">📍 Netherlands / ICC</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SUMMARY / RESUME -->
+<div id="resume" class="section">
+  <div class="resume-intro">
+    This summary synthesises all previous sections. It shows how Islamic religious ideology maps onto each armed group — the crucial context for understanding the Al Hassan case and the Timbuktu occupation.
+  </div>
+
+  <div class="card">
+    <div class="card-header">Islam Tree → Armed Groups Mapping</div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Group</th><th>Orientation</th><th>Root Ideology</th><th>Goal</th><th>Key Leaders</th></tr>
+          <tr>
+            <td><strong style="color:#e08080">AQIM</strong></td>
+            <td>Sunni Jihadist</td>
+            <td><span class="tag tag-salafi">Salafi-Jihadist</span></td>
+            <td>Eliminate govts; establish Sharia across Maghreb; use violent jihad</td>
+            <td>Droukdel<br>Makhlouf</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#c090f0">AD</strong></td>
+            <td>Sunni Islamist</td>
+            <td><span class="tag tag-salafi">Salafist</span></td>
+            <td>Islamic state in Mali; replace Constitution with Sharia; enforce strict interpretation</td>
+            <td>Iyad Ag Ghaly<br><em>Al Hassan</em></td>
+          </tr>
+          <tr>
+            <td><strong style="color:#f0a060">MUJAO</strong></td>
+            <td>Militant Islamist</td>
+            <td><span class="tag tag-jihadist">Jihadist</span></td>
+            <td>Islamic state; regional jihadist ops in West Africa; compete with AQIM</td>
+            <td>al-Harati<br>Belmokhtar</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#80c0f8">MNLA</strong></td>
+            <td><strong>SECULAR</strong></td>
+            <td><span class="tag tag-nationalist">Nationalist</span></td>
+            <td>Tuareg independence in Azawad; secular self-governed state; NOT Islamic</td>
+            <td>Iyad Ag Ghaly (initially)<br>Decentralized</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#80e080">MNA</strong></td>
+            <td><strong>SECULAR</strong></td>
+            <td><span class="tag tag-nationalist">Nationalist</span></td>
+            <td>Defend Mali; oppose all insurgents; maintain government control</td>
+            <td>Govt-appointed<br>commanders</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Why the Alliance Failed — Core Contradiction</div>
+    <div class="card-body" style="font-size:0.85rem; line-height:1.8; color:#c8b89a;">
+      <p>The Jan–Mar 2012 alliance was built on a single shared interest: defeating the Malian government. Once the north was taken, the alliance collapsed immediately because the groups' visions were irreconcilable:</p>
+      <br>
+      <p><strong style="color:#80c0f8">MNLA</strong> wanted a secular Tuareg nation — no Sharia, no religious law, Tuareg identity-based governance.</p>
+      <br>
+      <p><strong style="color:#e08080">AQIM</strong> + <strong style="color:#c090f0">AD</strong> wanted an Islamic state governed by Sharia law, with no room for secular nationalism.</p>
+      <br>
+      <p>Within 24 hours of MNLA capturing Timbuktu (1 Apr), AD and AQIM expelled them (2 Apr). The city then entered the "Al Hassan Period" of strict Sharia enforcement.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">The Al Hassan Case — Context Summary</div>
+    <div class="card-body" style="font-size:0.85rem; line-height:1.8; color:#c8b89a;">
+      <p><strong style="color:var(--gold)">Who:</strong> Al Hassan, military commander of AD forces in Timbuktu</p>
+      <p><strong style="color:var(--gold)">Under:</strong> Iyad Ag Ghaly (AD founder/overall leader)</p>
+      <p><strong style="color:var(--gold)">When:</strong> April 2012 – January 2013</p>
+      <p><strong style="color:var(--gold)">Where:</strong> Timbuktu, northern Mali</p>
+      <p><strong style="color:var(--gold)">What:</strong> AD and AQIM imposed Sharia law; established religious courts; committed acts prosecuted as crimes against humanity and war crimes</p>
+      <p><strong style="color:var(--gold)">End:</strong> French liberation of Timbuktu, 28–29 January 2013</p>
+      <p><strong style="color:var(--gold)">Arrest:</strong> 31 March 2018, Netherlands; prosecuted at ICC</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
