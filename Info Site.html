@@ -92,6 +92,186 @@
     background: rgba(212,168,67,0.06);
   }
 
+  /* ANIMATED TIMELINE */
+  #anim-section { padding: 16px; max-width: 900px; margin: 0 auto; display: none; }
+  #anim-section.active { display: block; }
+
+  .anim-intro {
+    background: linear-gradient(135deg, rgba(40,30,10,0.9), rgba(50,35,10,0.9));
+    border: 1px solid var(--sand);
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+
+  .anim-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .anim-btn {
+    padding: 8px 18px;
+    border-radius: 4px;
+    border: 1px solid var(--sand);
+    background: transparent;
+    color: var(--gold);
+    font-family: inherit;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .anim-btn:hover { background: rgba(212,168,67,0.12); }
+  .anim-btn.active-btn { background: rgba(212,168,67,0.18); border-color: var(--gold); }
+
+  .anim-speed {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .anim-speed input { width: 80px; accent-color: var(--gold); }
+
+  /* PROGRESS BAR */
+  .anim-progress-wrap {
+    background: var(--mid);
+    border-radius: 4px;
+    height: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .anim-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 4px;
+  }
+
+  /* STAGE DISPLAY */
+  .anim-stage {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 560px) { .anim-stage { grid-template-columns: 1fr; } }
+
+  /* LEFT: event card */
+  .anim-event-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .anim-event-date {
+    background: var(--mid);
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .anim-event-body { padding: 12px; }
+  .anim-event-title { font-size: 0.88rem; color: var(--text); margin-bottom: 6px; font-weight: bold; }
+  .anim-event-loc { font-size: 0.72rem; color: var(--muted); margin-bottom: 8px; }
+  .anim-event-desc { font-size: 0.8rem; color: #c8b89a; line-height: 1.6; }
+  .anim-event-groups { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+  .anim-group-pill {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* RIGHT: map/visualization */
+  .anim-visual {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    min-height: 280px;
+    position: relative;
+  }
+  .anim-visual-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* Mali map SVG container */
+  .mali-map-wrap { position: relative; width: 100%; }
+  .mali-map-wrap svg { width: 100%; height: auto; }
+
+  /* City dot labels */
+  .city-dot { transition: all 0.4s ease; }
+  .city-dot circle { transition: all 0.4s ease; }
+  .city-label { font-size: 9px; fill: var(--muted); transition: all 0.4s ease; font-family: Georgia, serif; }
+  .city-label.active-city { fill: var(--gold); font-weight: bold; }
+  .city-dot.active circle { filter: drop-shadow(0 0 6px currentColor); }
+
+  /* SCROLLING LOG */
+  .anim-log {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    max-height: 140px;
+    overflow-y: auto;
+    font-size: 0.75rem;
+    font-family: Georgia, serif;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .log-entry {
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(74,53,32,0.3);
+    color: var(--muted);
+    opacity: 0;
+    transform: translateY(-6px);
+    animation: logIn 0.4s forwards;
+  }
+  .log-entry:last-child { border-bottom: none; }
+  .log-entry .log-date { color: var(--gold); margin-right: 6px; }
+  @keyframes logIn { to { opacity: 1; transform: translateY(0); } }
+
+  /* STEP DOTS */
+  .anim-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+  .step-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 1px solid var(--mid);
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .step-dot.done { background: var(--muted); }
+  .step-dot.current { background: var(--gold); box-shadow: 0 0 6px var(--gold); transform: scale(1.3); }
+  .step-dot.critical-dot { border-color: var(--accent); }
+  .step-dot.critical-dot.done { background: var(--accent); }
+  .step-dot.critical-dot.current { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
   /* SECTIONS */
   .section { display: none; padding: 16px; max-width: 900px; margin: 0 auto; }
   .section.active { display: block; }
@@ -470,6 +650,7 @@
   <button onclick="show('groups',this)">⚔ Armed Groups</button>
   <button onclick="show('relations',this)">🔗 Relations</button>
   <button onclick="show('timeline',this)">📅 Timeline</button>
+  <button onclick="show('anim-section',this)">▶ Animation</button>
   <button onclick="show('resume',this)">📊 Summary</button>
 </nav>
 
@@ -986,14 +1167,658 @@
   </div>
 </div>
 
+<!-- ANIMATION SECTION -->
+<div id="anim-section" style="padding:16px;max-width:900px;margin:0 auto;display:none;">
+<style>
+  .anim-intro{background:linear-gradient(135deg,rgba(40,30,10,.9),rgba(50,35,10,.9));border:1px solid var(--sand);border-radius:6px;padding:14px 16px;margin-bottom:18px;font-style:italic;color:var(--muted);font-size:.85rem;line-height:1.8;}
+  .anim-controls{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+  .anim-btn{padding:7px 16px;border-radius:4px;border:1px solid var(--sand);background:transparent;color:var(--gold);font-family:inherit;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;transition:all .2s;}
+  .anim-btn:hover{background:rgba(212,168,67,.12);}
+  .anim-btn.active-btn{background:rgba(212,168,67,.18);border-color:var(--gold);}
+  .anim-speed{display:flex;align-items:center;gap:8px;font-size:.75rem;color:var(--muted);}
+  .anim-speed input{width:80px;accent-color:var(--gold);}
+  .anim-progress-wrap{background:var(--mid);border-radius:4px;height:4px;margin-bottom:14px;overflow:hidden;}
+  .anim-progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));width:0%;transition:width .3s ease;border-radius:4px;}
+  .anim-steps{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;}
+  .step-dot{width:10px;height:10px;border-radius:50%;background:var(--border);border:1px solid var(--mid);cursor:pointer;transition:all .3s;flex-shrink:0;}
+  .step-dot.done{background:var(--muted);}
+  .step-dot.current{background:var(--gold);box-shadow:0 0 6px var(--gold);transform:scale(1.3);}
+  .step-dot.critical-dot{border-color:var(--accent);}
+  .step-dot.critical-dot.done{background:var(--accent);}
+  .step-dot.critical-dot.current{background:var(--accent);box-shadow:0 0 8px var(--accent);}
+  .anim-main{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:580px){.anim-main{grid-template-columns:1fr;}}
+  .anim-left{display:flex;flex-direction:column;gap:12px;}
+  .anim-datebox{background:var(--mid);border:1px solid var(--border);border-radius:6px;padding:12px 14px;}
+  .ev-date-main{font-size:1rem;color:var(--gold);font-weight:bold;letter-spacing:.04em;}
+  .ev-loc-main{font-size:.78rem;color:var(--muted);margin-top:3px;}
+  .ev-title-main{font-size:.88rem;color:var(--text);margin-top:6px;font-weight:bold;}
+  .ev-desc-main{font-size:.8rem;color:#c8b89a;margin-top:6px;line-height:1.6;}
+  .anim-groups-panel{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 14px;}
+  .anim-groups-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
+  .group-status-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid rgba(74,53,32,.4);}
+  .group-status-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .gs-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+  .gs-name{font-size:.78rem;font-weight:bold;min-width:48px;}
+  .gs-info{font-size:.75rem;color:#c0aa88;line-height:1.5;flex:1;}
+  .gs-change{font-size:.7rem;color:var(--accent);font-style:italic;margin-top:2px;}
+  .anim-map-panel{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px;}
+  .anim-map-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;}
+  .anim-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .legend-item{display:flex;align-items:center;gap:5px;font-size:.65rem;color:var(--muted);}
+  .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+</style>
+
+  <div class="anim-intro">
+    Step-by-step walkthrough of the Mali conflict. Each step shows the date, what happened, where each group is, and any major changes. Use the dots to jump to any event.
+  </div>
+
+  <div class="anim-controls">
+    <button class="anim-btn" id="btn-play" onclick="animPlay()">&#9654; Play</button>
+    <button class="anim-btn" id="btn-pause" onclick="animPause()">&#9646;&#9646; Pause</button>
+    <button class="anim-btn" onclick="animReset()">&#8635; Reset</button>
+    <div class="anim-speed">
+      <span>Speed:</span>
+      <input type="range" id="speed-range" min="600" max="3500" value="2200" step="200" oninput="updateSpeed(this.value)">
+      <span id="speed-label">2.2s</span>
+    </div>
+  </div>
+
+  <div class="anim-progress-wrap">
+    <div class="anim-progress-bar" id="progress-bar"></div>
+  </div>
+
+  <div class="anim-steps" id="step-dots"></div>
+
+  <div class="anim-main">
+
+    <!-- LEFT: Date + Groups -->
+    <div class="anim-left">
+
+      <div class="anim-datebox" id="event-card">
+        <div class="ev-date-main" id="ev-date">&mdash;</div>
+        <div class="ev-loc-main" id="ev-loc"></div>
+        <div class="ev-title-main" id="ev-title">Press Play to begin</div>
+        <div class="ev-desc-main" id="ev-desc">The animation walks through every key event in the Mali conflict step by step.</div>
+      </div>
+
+      <div class="anim-groups-panel">
+        <div class="anim-groups-title">Where each group is &amp; what changed</div>
+        <div id="group-status-list"></div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Map -->
+    <div class="anim-map-panel">
+      <div class="anim-map-title">Mali &mdash; Active locations</div>
+      <svg viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg" id="mali-svg" style="width:100%;height:auto;">
+
+        <!-- Mali outline - more accurate shape -->
+        <!-- Northern flat top border, eastern bulge, southwestern narrowing -->
+        <path d="
+          M 55,18 L 245,18
+          L 258,45 L 262,75 L 258,105 L 245,125 L 240,145
+          L 225,160 L 215,180 L 205,200
+          L 195,215 L 182,235 L 168,258
+          L 155,280 L 145,300 L 135,318
+          L 118,318 L 105,305 L 88,285
+          L 72,260 L 58,238 L 46,215
+          L 38,192 L 32,168 L 30,140
+          L 32,110 L 38,80 L 45,50 Z
+        " fill="#1e1508" stroke="#5a4020" stroke-width="2" stroke-linejoin="round"/>
+
+        <!-- Northern desert shading (Azawad/Sahara zone) -->
+        <path d="
+          M 55,18 L 245,18 L 258,45 L 262,75 L 258,105 L 245,125 L 240,145
+          L 180,148 L 120,148 L 75,140 L 45,125 L 32,110 L 38,80 L 45,50 Z
+        " fill="#251c0a" stroke="none"/>
+
+        <!-- MALI label top center -->
+        <text x="148" y="35" font-size="11" fill="#c8a96e" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" letter-spacing="3">MALI</text>
+
+        <!-- Azawad label — lower left of northern zone, away from cities -->
+        <text x="68" y="110" font-size="7" fill="#4a3820" text-anchor="middle" font-family="Georgia,serif" font-style="italic">AZAWAD</text>
+
+        <!-- Sahara label top right -->
+        <text x="210" y="58" font-size="6" fill="#3a2a10" text-anchor="middle" font-family="Georgia,serif" font-style="italic">SAHARA</text>
+
+        <!-- ===== CITY DOTS ===== -->
+
+        <!-- Kidal — far northeast -->
+        <g class="city-dot" id="dot-kidal">
+          <circle cx="218" cy="88" r="4" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="226" y="92" class="city-label" id="lbl-kidal">Kidal</text>
+        </g>
+
+        <!-- Menaka — east -->
+        <g class="city-dot" id="dot-menaka">
+          <circle cx="245" cy="122" r="4" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="253" y="126" class="city-label" id="lbl-menaka">Menaka</text>
+        </g>
+
+        <!-- Northern captured cities cluster — upper north, well spaced from Azawad label -->
+        <g class="city-dot" id="dot-north">
+          <circle cx="148" cy="62" r="4" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="156" y="66" class="city-label" id="lbl-north">N. Cities (Jan-Mar 2012)</text>
+        </g>
+
+        <!-- Timbuktu — northwest area -->
+        <g class="city-dot" id="dot-timbuktu">
+          <circle cx="108" cy="118" r="5" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="116" y="122" class="city-label" id="lbl-timbuktu">Timbuktu</text>
+        </g>
+
+        <!-- Gao — centre-east -->
+        <g class="city-dot" id="dot-gao">
+          <circle cx="200" cy="138" r="4" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="208" y="142" class="city-label" id="lbl-gao">Gao</text>
+        </g>
+
+        <!-- Konna — central -->
+        <g class="city-dot" id="dot-konna">
+          <circle cx="178" cy="200" r="4" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="186" y="204" class="city-label" id="lbl-konna">Konna</text>
+        </g>
+
+        <!-- Diabaly — centre-west -->
+        <g class="city-dot" id="dot-diabaly">
+          <circle cx="95" cy="220" r="4" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="103" y="224" class="city-label" id="lbl-diabaly">Diabaly</text>
+        </g>
+
+        <!-- Bamako — southwest -->
+        <g class="city-dot" id="dot-bamako">
+          <circle cx="82" cy="278" r="5" fill="#2d2010" stroke="#5a4020" stroke-width="1"/>
+          <text x="90" y="282" class="city-label" id="lbl-bamako">Bamako</text>
+        </g>
+
+        <!-- Netherlands badge — outside map bottom right -->
+        <g id="dot-neth" style="display:none">
+          <rect x="195" y="330" width="98" height="18" rx="4" fill="#1a1208" stroke="#5a4020" stroke-width="1"/>
+          <text x="244" y="342" font-size="8" fill="#9c8a6e" text-anchor="middle" font-family="Georgia,serif">&#x1F1F3;&#x1F1F1; Netherlands (ICC)</text>
+        </g>
+
+      </svg>
+
+      <!-- Per-group legend built dynamically -->
+      <div class="anim-legend" id="map-legend"></div>
+
+    </div>
+  </div>
+
+</div>
+
 <script>
+/* ---- SHOW/HIDE TABS ---- */
 function show(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.section, #anim-section').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  el.style.display = 'block';
   btn.classList.add('active');
   window.scrollTo(0, 0);
 }
+
+/* ---- GROUP DEFINITIONS ---- */
+/* Each group: unique color, full name, type label */
+const GROUPS = {
+  'MNLA':           { color:'#5bbcd8', dot:'#3a9ab8', name:'MNLA',           type:'Secular Nationalist' },
+  'AQIM':           { color:'#e05050', dot:'#c03030', name:'AQIM',           type:'Sunni Jihadist' },
+  'AD':             { color:'#b060e8', dot:'#8830c0', name:'AD',             type:'Sunni Islamist' },
+  'MUJAO':          { color:'#e89030', dot:'#c07010', name:'MUJAO',          type:'Militant Islamist' },
+  'MNA':            { color:'#60c060', dot:'#389838', name:'MNA',            type:'Malian Government' },
+  'French Forces':  { color:'#6090e8', dot:'#3060c0', name:'French Forces',  type:'International' },
+  'Chadian Forces': { color:'#78d878', dot:'#48a848', name:'Chadian Forces', type:'International' },
+  'Military Junta': { color:'#d8a030', dot:'#a87010', name:'Military Junta', type:'Coup / Junta' },
+  'Al Hassan':      { color:'#e05050', dot:'#c03030', name:'Al Hassan',      type:'AD Commander' },
+};
+
+const CITY_MAP = {
+  'Timbuktu':'dot-timbuktu', 'Menaka':'dot-menaka',
+  'Bamako':'dot-bamako', 'Kidal':'dot-kidal',
+  'Gao':'dot-gao', 'Multiple northern cities':'dot-north',
+  'Aguelhok / Northern Cities':'dot-north',
+  'Konna':'dot-konna', 'Diabaly':'dot-diabaly',
+  'Gao, Northern Mali':'dot-gao',
+  'Netherlands':'dot-neth',
+};
+
+/* 
+  Each event has:
+  - date, loc, title, desc, critical
+  - groupStatus: array of { group, location, change? }
+    location = where they are right now
+    change = optional string describing what changed this step
+  - activeCities: which city dots to light up (key from CITY_MAP)
+  - cityOwners: { cityDotId: groupKey } — who controls each lit city (determines dot color)
+*/
+const EVENTS = [
+  {
+    date:'Pre-2012', loc:'Northern Mali', title:'Pre-Insurgency Background', critical:false,
+    desc:'Jihadist groups build networks and recruit across northern Mali. The Malian government maintains nominal control but is increasingly challenged.',
+    activeCities:['Timbuktu','Bamako'],
+    cityOwners:{ 'dot-timbuktu':'MNA', 'dot-bamako':'MNA' },
+    groupStatus:[
+      { group:'MNA',   location:'Controls all major cities', change:null },
+      { group:'AQIM',  location:'Operating covertly in northern Mali', change:null },
+      { group:'AD',    location:'Building presence in the north', change:null },
+      { group:'MNLA',  location:'Organising in Azawad region', change:null },
+      { group:'MUJAO', location:'Recently split from AQIM (late 2011)', change:'Newly formed — split from AQIM' },
+    ]
+  },
+  {
+    date:'17 January 2012', loc:'Menaka', title:'First Battle — Rebellion Launches', critical:false,
+    desc:'MNLA attacks MNA forces in Menaka. The first major armed clash of the conflict. The Tuareg rebellion is officially underway.',
+    activeCities:['Menaka','Bamako'],
+    cityOwners:{ 'dot-menaka':'MNLA', 'dot-bamako':'MNA' },
+    groupStatus:[
+      { group:'MNLA', location:'Menaka — attacking MNA', change:'First battle launched' },
+      { group:'MNA',  location:'Menaka (defending), Bamako', change:'Under attack in Menaka' },
+      { group:'AQIM', location:'Northern Mali — observing, not yet committed', change:null },
+      { group:'AD',   location:'Northern Mali — supporting MNLA', change:null },
+    ]
+  },
+  {
+    date:'January – March 2012', loc:'Multiple northern cities', title:'Alliance Captures the North', critical:false,
+    desc:'MNLA, AQIM and AD form a temporary alliance of convenience. They sweep through northern cities: Aguelhok, Léré, Andéramboukane, Niafunké, Tinzawatene, Goumakoura.',
+    activeCities:['Multiple northern cities','Menaka','Kidal'],
+    cityOwners:{ 'dot-north':'MNLA', 'dot-menaka':'MNLA', 'dot-kidal':'MNLA' },
+    groupStatus:[
+      { group:'MNLA', location:'Advancing across northern cities', change:'Alliance with AD and AQIM — capturing city after city' },
+      { group:'AD',   location:'Northern cities — fighting alongside MNLA', change:'Temporary alliance with secular MNLA (common enemy: MNA)' },
+      { group:'AQIM', location:'Northern cities — fighting alongside MNLA', change:'Providing military expertise to the alliance' },
+      { group:'MNA',  location:'Retreating south', change:'Losing northern territory rapidly' },
+      { group:'MUJAO',location:'Northern Mali — peripheral role', change:null },
+    ]
+  },
+  {
+    date:'22 March 2012', loc:'Bamako', title:"Coup d'état — Government Collapses", critical:true,
+    desc:"Military junta seizes power in Bamako. The elected government is overthrown. This severely destabilises the Malian military and creates a power vacuum in the north that jihadists will exploit.",
+    activeCities:['Bamako','Multiple northern cities'],
+    cityOwners:{ 'dot-bamako':'Military Junta', 'dot-north':'MNLA' },
+    groupStatus:[
+      { group:'Military Junta', location:'Bamako — seized power', change:'COUP: Overthrows elected government; MNA chain of command collapses' },
+      { group:'MNA',   location:'Fragmented — coup destroys command structure', change:'Severely weakened by coup' },
+      { group:'MNLA',  location:'Northern cities — advancing unopposed', change:'Northern push accelerates as MNA collapses' },
+      { group:'AD',    location:'Northern Mali', change:null },
+      { group:'AQIM',  location:'Northern Mali', change:null },
+    ]
+  },
+  {
+    date:'30 March 2012', loc:'Kidal', title:'Kidal Falls', critical:false,
+    desc:'MNLA, AD and AQIM capture Kidal. The alliance is still intact — but internal tensions are already visible as the jihadists begin imposing religious rules.',
+    activeCities:['Kidal','Multiple northern cities','Menaka'],
+    cityOwners:{ 'dot-kidal':'MNLA', 'dot-north':'MNLA', 'dot-menaka':'MNLA' },
+    groupStatus:[
+      { group:'MNLA', location:'Kidal, northern cities', change:'Controls Kidal' },
+      { group:'AD',   location:'Kidal — alongside MNLA', change:'Tensions beginning over governance' },
+      { group:'AQIM', location:'Kidal — alongside MNLA', change:null },
+      { group:'MNA',  location:'Central and southern Mali', change:'Retreated from the north' },
+    ]
+  },
+  {
+    date:'31 March 2012', loc:'Gao', title:'Gao Falls — Competition Begins', critical:false,
+    desc:'All major groups converge on Gao. For the first time all four insurgent factions are in the same city. Competition between them surfaces immediately.',
+    activeCities:['Gao','Kidal','Multiple northern cities'],
+    cityOwners:{ 'dot-gao':'MNLA', 'dot-kidal':'MNLA', 'dot-north':'MNLA' },
+    groupStatus:[
+      { group:'MNLA',  location:'Gao, Kidal, northern cities', change:'Controls Gao — for now' },
+      { group:'AD',    location:'Gao — alongside MNLA', change:'Friction increasing with MNLA over Sharia' },
+      { group:'AQIM',  location:'Gao — alongside MNLA', change:null },
+      { group:'MUJAO', location:'Gao — arrives independently', change:'Competing with AQIM for influence in Gao' },
+      { group:'MNA',   location:'Bamako and central Mali', change:null },
+    ]
+  },
+  {
+    date:'1 April 2012', loc:'Timbuktu', title:'MNLA Takes Timbuktu', critical:false,
+    desc:'MNLA captures Timbuktu from MNA. They hold it for exactly 24 hours. This is the peak of MNLA territorial control.',
+    activeCities:['Timbuktu','Gao','Kidal'],
+    cityOwners:{ 'dot-timbuktu':'MNLA', 'dot-gao':'MNLA', 'dot-kidal':'MNLA' },
+    groupStatus:[
+      { group:'MNLA', location:'Timbuktu, Gao, Kidal — at peak strength', change:'Captures Timbuktu — controls all three major northern cities' },
+      { group:'AD',   location:'Timbuktu — moving in alongside MNLA', change:'Preparing to challenge MNLA for the city' },
+      { group:'AQIM', location:'Timbuktu — moving in alongside AD', change:null },
+      { group:'MNA',  location:'Bamako — capital', change:'Lost Timbuktu' },
+    ]
+  },
+  {
+    date:'2 April 2012', loc:'Timbuktu', title:'CRITICAL — Alliance Breaks Down', critical:true,
+    desc:'AD and AQIM forcibly expel MNLA from Timbuktu — just 24 hours after MNLA captured it. The alliance is over. The secular vs. Islamist conflict is now open.',
+    activeCities:['Timbuktu','Gao','Kidal'],
+    cityOwners:{ 'dot-timbuktu':'AD', 'dot-gao':'MUJAO', 'dot-kidal':'MNLA' },
+    groupStatus:[
+      { group:'AD',    location:'Timbuktu — NOW IN CONTROL', change:'EXPELLED MNLA — takes sole control of Timbuktu' },
+      { group:'AQIM',  location:'Timbuktu — allied with AD', change:'Backed AD in expelling MNLA' },
+      { group:'MNLA',  location:'Kidal — retreating', change:'EXPELLED from Timbuktu; alliance over' },
+      { group:'MUJAO', location:'Gao — consolidating control', change:'Asserts control over Gao' },
+      { group:'MNA',   location:'Bamako', change:null },
+    ]
+  },
+  {
+    date:'6 April 2012', loc:'Northern Mali', title:'Ideological War — MNLA vs AD', critical:false,
+    desc:'Open conflict between MNLA and AD across northern Mali. Secular Tuareg nationalism vs. Islamist governance — fundamentally incompatible visions.',
+    activeCities:['Kidal','Timbuktu','Gao'],
+    cityOwners:{ 'dot-kidal':'MNLA', 'dot-timbuktu':'AD', 'dot-gao':'MUJAO' },
+    groupStatus:[
+      { group:'MNLA',  location:'Kidal — last stronghold', change:'Fighting AD across northern Mali; being marginalised' },
+      { group:'AD',    location:'Timbuktu — consolidating', change:'Expanding control; imposing Islamic rules' },
+      { group:'AQIM',  location:'Northern Mali — supporting AD', change:null },
+      { group:'MUJAO', location:'Gao — holding', change:null },
+      { group:'MNA',   location:'Bamako and central Mali', change:null },
+    ]
+  },
+  {
+    date:'April – May 2012', loc:'Timbuktu', title:'Al Hassan Period Begins — Sharia Enforced', critical:true,
+    desc:'AD and AQIM establish full control of Timbuktu. Sharia law enforcement begins. Al Hassan acts as AD military commander on the ground, operating under Iyad Ag Ghaly.',
+    activeCities:['Timbuktu','Gao','Kidal'],
+    cityOwners:{ 'dot-timbuktu':'AD', 'dot-gao':'MUJAO', 'dot-kidal':'MNLA' },
+    groupStatus:[
+      { group:'AD',    location:'Timbuktu — in full command', change:'AL HASSAN PERIOD STARTS — Sharia courts opened; amputations, flogging enforced' },
+      { group:'AQIM',  location:'Timbuktu — supporting AD', change:'Provides military backing; shares governance of Timbuktu' },
+      { group:'MUJAO', location:'Gao — in control', change:'Running Gao under their own Islamist rules' },
+      { group:'MNLA',  location:'Kidal — weakened', change:'Marginalised; controls only Kidal' },
+      { group:'MNA',   location:'Bamako — waiting for support', change:null },
+    ]
+  },
+  {
+    date:'June 2012 – January 2013', loc:'Gao, Northern Mali', title:'Fragmented Control', critical:false,
+    desc:'Northern Mali is divided among three jihadist zones. Timbuktu → AD+AQIM. Gao → MUJAO. Kidal → MNLA (weakened). Constant competition between jihadist groups.',
+    activeCities:['Timbuktu','Gao','Kidal'],
+    cityOwners:{ 'dot-timbuktu':'AD', 'dot-gao':'MUJAO', 'dot-kidal':'MNLA' },
+    groupStatus:[
+      { group:'AD',    location:'Timbuktu — governing under Sharia', change:'Sharia enforcement ongoing; Al Hassan commands military' },
+      { group:'AQIM',  location:'Northern Mali broadly', change:'Competing with MUJAO for wider northern control' },
+      { group:'MUJAO', location:'Gao — in control', change:'Competing with AQIM for legitimacy and territory' },
+      { group:'MNLA',  location:'Kidal only', change:'Effectively sidelined from conflict' },
+      { group:'MNA',   location:'Bamako — requesting international help', change:null },
+    ]
+  },
+  {
+    date:'September 2012', loc:'Timbuktu', title:'Religious Courts Formalised', critical:false,
+    desc:'AD and AQIM formalise Islamic courts in Timbuktu. Qadis (Islamic judges) preside. Punishments escalate. Al Hassan\'s military command enforces court verdicts.',
+    activeCities:['Timbuktu','Gao','Kidal'],
+    cityOwners:{ 'dot-timbuktu':'AD', 'dot-gao':'MUJAO', 'dot-kidal':'MNLA' },
+    groupStatus:[
+      { group:'AD',   location:'Timbuktu — deepening control', change:'Formal Sharia courts established; Al Hassan enforces judgments' },
+      { group:'AQIM', location:'Timbuktu — judicial role', change:'Qadi courts operating; sentences include amputations' },
+      { group:'MUJAO',location:'Gao', change:null },
+      { group:'MNLA', location:'Kidal', change:null },
+    ]
+  },
+  {
+    date:'Late 2012 – Early 2013', loc:'Northern / Central Mali', title:'Jihadist Consolidation', critical:false,
+    desc:'All three jihadist groups tighten their grip on northern Mali. Sharia intensifies. MNLA is completely marginalised. The Malian government appeals urgently to France and the UN.',
+    activeCities:['Timbuktu','Gao','Kidal'],
+    cityOwners:{ 'dot-timbuktu':'AD', 'dot-gao':'MUJAO', 'dot-kidal':'MNLA' },
+    groupStatus:[
+      { group:'AD',    location:'Timbuktu — entrenched', change:'Sharia enforcement at its most intense' },
+      { group:'AQIM',  location:'Northern Mali broadly', change:'Expanding influence into central Mali' },
+      { group:'MUJAO', location:'Gao and surroundings', change:'Pushing further into central Mali' },
+      { group:'MNLA',  location:'Kidal — barely holding', change:'No longer a meaningful military force' },
+      { group:'MNA',   location:'Bamako — requesting urgent French help', change:'Formal request for French military intervention' },
+    ]
+  },
+  {
+    date:'January 2013', loc:'Konna, Diabaly', title:'Jihadists Push South — Capital Threatened', critical:true,
+    desc:'AQIM, AD and MUJAO advance south. Konna and Diabaly fall. Bamako is now within reach. France decides to intervene.',
+    activeCities:['Konna','Diabaly','Timbuktu','Gao','Bamako'],
+    cityOwners:{ 'dot-konna':'AQIM', 'dot-diabaly':'MUJAO', 'dot-timbuktu':'AD', 'dot-gao':'MUJAO', 'dot-bamako':'MNA' },
+    groupStatus:[
+      { group:'AQIM',  location:'Konna — advancing south', change:'Crossed into central Mali; Bamako is threatened' },
+      { group:'MUJAO', location:'Diabaly — advancing south', change:'Advancing alongside AQIM toward the capital' },
+      { group:'AD',    location:'Timbuktu — holding', change:'Maintaining Timbuktu while others push south' },
+      { group:'MNA',   location:'Bamako — defending capital', change:'Capital under threat for the first time' },
+      { group:'MNLA',  location:'Kidal', change:null },
+    ]
+  },
+  {
+    date:'11 January 2013', loc:'Central / Northern Mali', title:'International Intervention — Operation Serval', critical:true,
+    desc:'France launches Operation Serval. French, Malian and Chadian forces engage all jihadist groups. The tide of the conflict begins to turn.',
+    activeCities:['Konna','Timbuktu','Gao','Bamako'],
+    cityOwners:{ 'dot-konna':'French Forces', 'dot-timbuktu':'AD', 'dot-gao':'MUJAO', 'dot-bamako':'MNA' },
+    groupStatus:[
+      { group:'French Forces',  location:'Konna — leading counterattack', change:'OPERATION SERVAL LAUNCHED — France enters the conflict' },
+      { group:'Chadian Forces', location:'Northern Mali — supporting French', change:'Deployed alongside French forces' },
+      { group:'MNA',   location:'Bamako + fighting alongside French', change:'Regaining momentum with French support' },
+      { group:'AQIM',  location:'Northern Mali — retreating', change:'Under heavy air and ground attack' },
+      { group:'AD',    location:'Timbuktu — under pressure', change:'French forces approaching' },
+      { group:'MUJAO', location:'Gao — under pressure', change:'Losing ground to international forces' },
+    ]
+  },
+  {
+    date:'28–29 January 2013', loc:'Timbuktu', title:'Liberation of Timbuktu — Al Hassan Period Ends', critical:true,
+    desc:'French and Malian forces retake Timbuktu. AD and AQIM are expelled. Al Hassan\'s period of command ends. International control is established.',
+    activeCities:['Timbuktu','Gao','Bamako'],
+    cityOwners:{ 'dot-timbuktu':'French Forces', 'dot-gao':'French Forces', 'dot-bamako':'MNA' },
+    groupStatus:[
+      { group:'French Forces', location:'Timbuktu — in control', change:'LIBERATED TIMBUKTU — AD and AQIM expelled' },
+      { group:'MNA',   location:'Bamako + Timbuktu', change:'Retakes Timbuktu alongside French' },
+      { group:'AD',    location:'Expelled — fleeing north', change:'AL HASSAN PERIOD ENDS — expelled from Timbuktu' },
+      { group:'AQIM',  location:'Fleeing to desert', change:'Retreating into Sahara' },
+      { group:'MUJAO', location:'Retreating from Gao', change:'Losing Gao to international forces' },
+      { group:'MNLA',  location:'Kidal', change:null },
+    ]
+  },
+  {
+    date:'15 May 2015', loc:'Bamako', title:'Peace Negotiations', critical:false,
+    desc:'Malian government and northern armed factions hold peace talks in Bamako. Power-sharing agreements are discussed. The conflict is far from resolved.',
+    activeCities:['Bamako'],
+    cityOwners:{ 'dot-bamako':'MNA' },
+    groupStatus:[
+      { group:'MNA',  location:'Bamako — leading negotiations', change:'Peace process underway' },
+      { group:'MNLA', location:'Kidal — at the negotiating table', change:'Participating in peace talks' },
+      { group:'AQIM', location:'Desert — regrouping', change:'Not party to negotiations; continuing operations' },
+      { group:'AD',   location:'Northern Mali — regrouping', change:'Not party to negotiations' },
+    ]
+  },
+  {
+    date:'April 2017 – March 2018', loc:'Northern Mali, Bamako', title:'Ongoing Operations', critical:false,
+    desc:'French and Malian forces continue operations against remaining jihadist groups. The north remains unstable. Groups have regrouped and resumed attacks.',
+    activeCities:['Bamako'],
+    cityOwners:{ 'dot-bamako':'MNA' },
+    groupStatus:[
+      { group:'French Forces', location:'Northern Mali — ongoing patrols', change:'Continuing counter-insurgency operations' },
+      { group:'MNA',   location:'Bamako + northern operations', change:null },
+      { group:'AQIM',  location:'Northern desert — regrouped', change:'Resumed attacks; reorganised in Sahara' },
+      { group:'AD',    location:'Northern Mali — regrouped', change:'Resumed operations in the north' },
+    ]
+  },
+  {
+    date:'31 March 2018', loc:'Netherlands', title:'Al Hassan Arrested — ICC', critical:true,
+    desc:'Al Hassan is arrested and transferred to the Netherlands. He faces prosecution at the International Criminal Court for war crimes and crimes against humanity committed in Timbuktu from April 2012 to January 2013.',
+    activeCities:['Netherlands'],
+    cityOwners:{ 'dot-neth':'Al Hassan' },
+    groupStatus:[
+      { group:'Al Hassan', location:'Netherlands — ICC custody', change:'ARRESTED — transferred to ICC for prosecution' },
+      { group:'AD',    location:'Northern Mali — still operating', change:'Leadership not yet prosecuted' },
+      { group:'AQIM',  location:'Sahel — still operating', change:'Still active across the region' },
+      { group:'MNA',   location:'Bamako', change:null },
+      { group:'French Forces', location:'Mali — ongoing mission', change:null },
+    ]
+  },
+];
+
+let currentStep = -1;
+let animTimer   = null;
+let stepDuration = 2200;
+let isPlaying    = false;
+
+/* Build step dots */
+function buildDots() {
+  const wrap = document.getElementById('step-dots');
+  wrap.innerHTML = '';
+  EVENTS.forEach((ev, i) => {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (ev.critical ? ' critical-dot' : '');
+    d.title = ev.date + ' — ' + ev.title;
+    d.onclick = () => { animPause(); goToStep(i); };
+    wrap.appendChild(d);
+  });
+}
+
+function updateDots(step) {
+  document.querySelectorAll('.step-dot').forEach((d, i) => {
+    d.classList.remove('done','current');
+    if (i < step) d.classList.add('done');
+    if (i === step) d.classList.add('current');
+  });
+}
+
+/* Reset all city dots to inactive */
+function resetCities() {
+  document.querySelectorAll('.city-dot').forEach(d => {
+    const c = d.querySelector('circle');
+    if (c) { c.setAttribute('fill','#2d2010'); c.setAttribute('stroke','#5a4020'); c.setAttribute('r', c.getAttribute('r') > 4 ? '5' : '4'); }
+    const lbl = d.querySelector('text');
+    if (lbl) { lbl.setAttribute('fill','#9c8a6e'); lbl.style.fontWeight=''; }
+  });
+  document.getElementById('dot-neth').style.display = 'none';
+}
+
+/* Activate cities with correct group color */
+function activateCities(ev) {
+  resetCities();
+  Object.entries(ev.cityOwners).forEach(([dotId, groupKey]) => {
+    if (dotId === 'dot-neth') {
+      document.getElementById('dot-neth').style.display = 'block';
+      return;
+    }
+    const dot = document.getElementById(dotId);
+    if (!dot) return;
+    const grp = GROUPS[groupKey] || { dot:'#c8a96e' };
+    const c = dot.querySelector('circle');
+    if (c) {
+      c.setAttribute('fill', grp.dot);
+      c.setAttribute('stroke', grp.color);
+      c.style.filter = 'drop-shadow(0 0 5px ' + grp.dot + ')';
+    }
+    const lbl = dot.querySelector('text');
+    if (lbl) { lbl.setAttribute('fill', grp.color); lbl.style.fontWeight = 'bold'; }
+  });
+}
+
+/* Build the group legend from active groups */
+function buildLegend(groups) {
+  const leg = document.getElementById('map-legend');
+  leg.innerHTML = '';
+  const seen = new Set();
+  groups.forEach(gs => {
+    if (seen.has(gs.group)) return;
+    seen.add(gs.group);
+    const grp = GROUPS[gs.group];
+    if (!grp) return;
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = '<div class="legend-dot" style="background:' + grp.dot + '"></div><span style="color:' + grp.color + '">' + grp.name + '</span>';
+    leg.appendChild(item);
+  });
+}
+
+/* Build the group status list */
+function buildGroupStatus(ev) {
+  const list = document.getElementById('group-status-list');
+  list.innerHTML = '';
+  ev.groupStatus.forEach(gs => {
+    const grp = GROUPS[gs.group] || { color:'#aaa', dot:'#888', name: gs.group };
+    const row = document.createElement('div');
+    row.className = 'group-status-row';
+    row.innerHTML =
+      '<div class="gs-dot" style="background:' + grp.dot + ';box-shadow:0 0 4px ' + grp.dot + '"></div>' +
+      '<div>' +
+        '<div class="gs-name" style="color:' + grp.color + '">' + gs.group + '</div>' +
+        '<div class="gs-info">📍 ' + gs.location + '</div>' +
+        (gs.change ? '<div class="gs-change">⚡ ' + gs.change + '</div>' : '') +
+      '</div>';
+    list.appendChild(row);
+  });
+}
+
+function renderStep(step) {
+  const ev = EVENTS[step];
+
+  /* Date / title / desc */
+  document.getElementById('ev-date').textContent  = ev.date;
+  document.getElementById('ev-loc').textContent   = '📍 ' + ev.loc;
+  document.getElementById('ev-title').textContent = ev.title;
+  document.getElementById('ev-desc').textContent  = ev.desc;
+
+  /* Critical highlight */
+  const card = document.getElementById('event-card');
+  card.style.borderColor = ev.critical ? 'var(--accent)' : 'var(--border)';
+  card.style.boxShadow   = ev.critical ? '0 0 14px rgba(232,98,42,0.3)' : 'none';
+
+  /* Map */
+  activateCities(ev);
+
+  /* Groups */
+  buildGroupStatus(ev);
+  buildLegend(ev.groupStatus);
+
+  /* Dots + progress */
+  updateDots(step);
+  const pct = ((step + 1) / EVENTS.length) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+}
+
+function goToStep(step) { currentStep = step; renderStep(step); }
+
+function animPlay() {
+  if (isPlaying) return;
+  isPlaying = true;
+  document.getElementById('btn-play').classList.add('active-btn');
+  stepForward();
+}
+
+function stepForward() {
+  if (!isPlaying) return;
+  currentStep++;
+  if (currentStep >= EVENTS.length) {
+    isPlaying = false;
+    document.getElementById('btn-play').classList.remove('active-btn');
+    return;
+  }
+  renderStep(currentStep);
+  animTimer = setTimeout(stepForward, stepDuration);
+}
+
+function animPause() {
+  isPlaying = false;
+  clearTimeout(animTimer);
+  document.getElementById('btn-play').classList.remove('active-btn');
+}
+
+function animReset() {
+  animPause();
+  currentStep = -1;
+  updateDots(-1);
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('ev-date').textContent  = '—';
+  document.getElementById('ev-loc').textContent   = '';
+  document.getElementById('ev-title').textContent = 'Press Play to begin';
+  document.getElementById('ev-desc').textContent  = 'The animation walks through every key event in the Mali conflict step by step.';
+  document.getElementById('event-card').style.borderColor = 'var(--border)';
+  document.getElementById('event-card').style.boxShadow   = 'none';
+  document.getElementById('group-status-list').innerHTML  = '';
+  document.getElementById('map-legend').innerHTML         = '';
+  resetCities();
+}
+
+function updateSpeed(val) {
+  stepDuration = parseInt(val);
+  document.getElementById('speed-label').textContent = (val / 1000).toFixed(1) + 's';
+}
+
+buildDots();
+
+/* Init: hide everything, show intro */
+document.querySelectorAll('.section, #anim-section').forEach(s => { s.style.display = 'none'; });
+const introEl = document.getElementById('intro');
+if (introEl) introEl.style.display = 'block';
 </script>
 
 </body>
